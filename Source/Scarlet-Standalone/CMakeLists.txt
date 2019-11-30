@@ -1,0 +1,2 @@
+add_executable(standalone Source/main.cpp)
+target_link_libraries(standalone ScarletRenderer)

@@ -1,6 +1,3 @@
-
-
-
 add_library(ScarletRenderer SHARED 
     Source/Scarlet/renderer.cpp
     Source/Scarlet/Math/Vector3F.cpp)

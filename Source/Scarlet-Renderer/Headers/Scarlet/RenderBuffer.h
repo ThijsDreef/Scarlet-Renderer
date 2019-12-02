@@ -7,8 +7,8 @@ private:
     int m_h;
 public:
     void writeBuffer(const char* fileName);
-    void setColor(int x, int y, Color color);
-    void setRenderBufferSize(int w, int h);
+    void setColor(unsigned int x, unsigned int y, Color color);
+    void setRenderBufferSize(unsigned int w, unsigned int h);
     RenderBuffer();
     ~RenderBuffer();
 };

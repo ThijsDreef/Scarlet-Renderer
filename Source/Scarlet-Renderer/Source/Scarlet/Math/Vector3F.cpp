@@ -16,7 +16,15 @@ Vector3F::~Vector3F() {
 
 }
 
-Vector3F Vector3F::normalize() {
+Vector3F Vector3F::cross(Vector3F other) {
+    return Vector3F((y * other.z) - (z * other.y), (z * other.x) - (x * other.z), (x * other.y) - (y * other.x));
+}
+
+void Vector3F::normalize() {
+    *this /= length();
+}
+
+Vector3F Vector3F::unit() {
     return *this / length();
 }
 
@@ -42,6 +50,26 @@ Vector3F Vector3F::operator+(float add) {
 
 Vector3F Vector3F::operator-(float min) {
     return Vector3F(x - min, y - min, z - min);
+}
+
+Vector3F Vector3F::operator*(Vector3F scalar) {
+    return Vector3F(x * scalar.x, y * scalar.y, z * scalar.z);
+}
+
+Vector3F Vector3F::operator/(Vector3F scalar) {
+    return Vector3F(x / scalar.x, y / scalar.y, z / scalar.z);
+}
+
+Vector3F Vector3F::operator+(Vector3F add) {
+    return Vector3F(x + add.x, y + add.y, z + add.z);
+}
+
+Vector3F Vector3F::operator-(Vector3F min) {
+    return Vector3F(x - min.x, y - min.y, z - min.z);
+}
+
+Vector3F Vector3F::operator-() {
+    return Vector3F(-x, -y, -z);
 }
 
 void Vector3F::operator*=(float scalar) {

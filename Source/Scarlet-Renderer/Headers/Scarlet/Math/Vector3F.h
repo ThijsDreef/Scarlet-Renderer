@@ -6,13 +6,19 @@ public:
 
     float length();
     float dot(Vector3F other);
-    Vector3F normalize();
+    void normalize();
+    Vector3F unit();
     Vector3F cross(Vector3F other);
 
     Vector3F operator/(float scalar);
     Vector3F operator+(float add);
     Vector3F operator-(float min);
     Vector3F operator*(float scalar);
+    Vector3F operator-();
+    Vector3F operator/(Vector3F scalar);
+    Vector3F operator+(Vector3F add);
+    Vector3F operator-(Vector3F min);
+    Vector3F operator*(Vector3F scalar);
     void operator/=(float scalar);   
     void operator+=(float add);
     void operator-=(float min);

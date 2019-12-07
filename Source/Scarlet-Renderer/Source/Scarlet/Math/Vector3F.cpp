@@ -1,4 +1,5 @@
 #include "Scarlet/Math/Vector3F.h"
+#include <cmath>
 
 Vector3F::Vector3F() {
     this->x = 0;

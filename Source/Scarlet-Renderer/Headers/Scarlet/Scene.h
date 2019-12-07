@@ -6,12 +6,12 @@ class Scene {
 private:
     AccelerationStructure* m_accelerationStructure;
     MaterialLibrary m_MaterialLibrary;
-    std::vector<Renderable> m_Renderables;
+    std::vector<Renderable*> m_Renderables;
 public:
     void addObject(Renderable* object);
-    void addMaterial(const Material& material);
+    unsigned int addMaterial(const Material* material);
     const Renderable* getObject(const Ray& ray);
-    Material& getMaterial(unsigned int id);
+    Material* getMaterial(unsigned int id);
     Scene(AccelerationStructure* accelerationStructure);
     ~Scene();
 };

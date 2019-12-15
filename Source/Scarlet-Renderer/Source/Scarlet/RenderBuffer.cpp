@@ -4,6 +4,8 @@
 #include <iostream>
 RenderBuffer::RenderBuffer() {
     m_buffer = new Pixel[1];
+    m_W = 1u;
+    m_H = 1u;
 }
 
 RenderBuffer::~RenderBuffer() {
@@ -11,16 +13,20 @@ RenderBuffer::~RenderBuffer() {
 }
 
 void RenderBuffer::writeBuffer(const char* fileName) { 
-    stbi_write_png(fileName, m_w, m_h, 3, m_buffer, m_w * 3);
+    stbi_write_png(fileName, m_W, m_H, 3, m_buffer, m_W * 3);
 }
 
-void RenderBuffer::setColor(int x, int y, Color color) {
-    m_buffer[x + y * m_w] = color;
+void RenderBuffer::setColor(unsigned int x, unsigned int y, Color color) {
+    m_buffer[x + y * m_W] = color;
 }
 
-void RenderBuffer::setRenderBufferSize(int w, int h) {
-    m_w = w;
-    m_h = h;
+void RenderBuffer::setColor(unsigned int id, Color color) {
+    m_buffer[id] = color;
+}
+
+void RenderBuffer::setRenderBufferSize(unsigned int w, unsigned int h) {
+    m_W = w;
+    m_H = h;
     delete[] m_buffer;
     m_buffer = new Pixel[w * h];
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include "Scarlet/RenderBuffer.h"
 #include "Scarlet/Camera.h"
 #include "Scarlet/Scene.h"

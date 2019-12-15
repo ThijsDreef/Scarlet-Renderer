@@ -1,3 +1,4 @@
+#pragma once
 #include "Scarlet/Objects/Color.h"
 
 class Pixel {

@@ -1,20 +1,16 @@
 #include <iostream>
-#include "Scarlet/RenderBuffer.h"
+#include "Scarlet/Renderer.h"
+#include "Scarlet/AccelerationStructures/FlatStructure.h"
 
 int main() {
-    int w = 256;
-    int h = 256;
-    RenderBuffer r;
-    Color c;
-    r.setRenderBufferSize(w, h);
-    for (int x = 0; x < w; x++) {
-        for (int y = 0; y < h; y++) {
-            c.r = (float)x / w;
-            c.g = (float)y / h;
-            r.setColor(x, y, c);
-        }
-    }
-    r.writeBuffer("output.png");
+    Renderer r;
+    Camera c = Camera(Vector3F(0, 0, -1), 60);
+    Scene s = Scene(new FlatStructure());
+    r.setRenderDimensions(1920, 1080);
+
+    r.renderScene(s, c);
+    r.writeRenderBuffer("ouptut.png");
+
 
     return 0;
 }

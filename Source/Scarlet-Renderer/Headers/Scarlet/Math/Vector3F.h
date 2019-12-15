@@ -1,3 +1,5 @@
+#pragma once
+
 class Vector3F {
 public:
     float x,y,z;

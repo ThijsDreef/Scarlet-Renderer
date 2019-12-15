@@ -1,3 +1,4 @@
+#pragma once
 #include "Scarlet/Math/Vector3F.h"
 
 class Mat4x4 {

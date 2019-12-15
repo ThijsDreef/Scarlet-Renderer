@@ -13,6 +13,7 @@ MaterialLibrary::~MaterialLibrary() {
 unsigned int MaterialLibrary::getNewId() {
     unsigned int id = m_FreeList.size();
     id = (id > 0) ? m_FreeList[id] : m_Materials.size();
+    return id;
 }
 
 unsigned int MaterialLibrary::addMaterial(Material* u_Material) {

@@ -1,3 +1,4 @@
+#pragma once
 #include "Scarlet/Math/Vector3F.h"
 #include "Scarlet/Objects/Ray.h"
 #include "Scarlet/Math/Mat4x4.h"

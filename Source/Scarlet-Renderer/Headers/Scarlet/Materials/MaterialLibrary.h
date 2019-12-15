@@ -1,3 +1,4 @@
+#pragma once
 #include "Scarlet/Materials/Material.h"
 #include <vector>
 

@@ -79,10 +79,22 @@ void Vector3F::operator*=(float scalar) {
     z *= scalar;
 }
 
+void Vector3F::operator*=(Vector3F other) {
+    x *= other.x;
+    y *= other.y;
+    z *= other.z;
+}
+
 void Vector3F::operator/=(float scalar) {
     x /= scalar;
     y /= scalar;
     z /= scalar;
+}
+
+void Vector3F::operator/=(Vector3F other) {
+    x /= other.x;
+    y /= other.y;
+    z /= other.z;
 }
 
 void Vector3F::operator+=(float add) {
@@ -91,8 +103,20 @@ void Vector3F::operator+=(float add) {
     z += add;
 }
 
+void Vector3F::operator+=(Vector3F other) {
+    x += other.x;
+    y += other.y;
+    z += other.z;
+}
+
 void Vector3F::operator-=(float min) {
     x -= min;
     y -= min;
     z -= min;
+}
+
+void Vector3F::operator-=(Vector3F other) {
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
 }

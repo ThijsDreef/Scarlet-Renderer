@@ -10,6 +10,7 @@ Scene::~Scene() {
 
 void Scene::addObject(Renderable* object) {
     m_Renderables.push_back(object);
+    m_AccelerationStructure->addObject(object);
 }
 
 unsigned int Scene::addMaterial(Material* material) {

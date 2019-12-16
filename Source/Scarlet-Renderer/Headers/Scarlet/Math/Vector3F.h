@@ -2,7 +2,7 @@
 
 class Vector3F {
 public:
-    float x,y,z;
+    float x, y, z;
 
     float length();
     float dot(Vector3F other);
@@ -10,18 +10,23 @@ public:
     Vector3F unit();
     Vector3F cross(Vector3F other);
 
-    Vector3F operator/(float scalar);
-    Vector3F operator+(float add);
-    Vector3F operator-(float min);
-    Vector3F operator*(float scalar);
     Vector3F operator-();
     Vector3F operator/(Vector3F scalar);
+    void operator/=(Vector3F scalar);
     Vector3F operator+(Vector3F add);
+    void operator+=(Vector3F add);
     Vector3F operator-(Vector3F min);
+    void operator-=(Vector3F min);
     Vector3F operator*(Vector3F scalar);
+    void operator*=(Vector3F scalar);
+
+    Vector3F operator/(float scalar);
     void operator/=(float scalar);   
+    Vector3F operator+(float add);
     void operator+=(float add);
+    Vector3F operator-(float min);
     void operator-=(float min);
+    Vector3F operator*(float scalar);
     void operator*=(float scalar);
 
     Vector3F();

@@ -121,10 +121,70 @@ Mat4x4 Mat4x4::operator*(const Mat4x4& other) {
 	return temp;
 }
 
-Vector3F Mat4x4::operator*(const Vector3F& other) {
+Vector3F Mat4x4::multByVector(const Vector3F& other) {
     Vector3F t;
-	t.x = other.x * m_Matrix[0] + other.y * m_Matrix[4] + other.z * m_Matrix[8];
-	t.y = other.x * m_Matrix[1] + other.y * m_Matrix[5] + other.z * m_Matrix[9];
-	t.z = other.x * m_Matrix[2] + other.y * m_Matrix[6] + other.z * m_Matrix[10];
+	t.x = other.x * m_Matrix[0] + other.y * m_Matrix[4] + other.z * m_Matrix[8] + m_Matrix[12];
+	t.y = other.x * m_Matrix[1] + other.y * m_Matrix[5] + other.z * m_Matrix[9] + m_Matrix[13];
+	t.z = other.x * m_Matrix[2] + other.y * m_Matrix[6] + other.z * m_Matrix[10] + m_Matrix[14];
 	return t;
+}
+
+Vector3F Mat4x4::multDirection(const Vector3F& direction) {
+    Vector3F t;
+	t.x = direction.x * m_Matrix[0] + direction.y * m_Matrix[4] + direction.z * m_Matrix[8];
+	t.y = direction.x * m_Matrix[1] + direction.y * m_Matrix[5] + direction.z * m_Matrix[9];
+	t.z = direction.x * m_Matrix[2] + direction.y * m_Matrix[6] + direction.z * m_Matrix[10];
+	return t;
+}
+
+Mat4x4 Mat4x4::inverse() {
+    double det;
+	Mat4x4 inv;
+  	int i;
+
+  	inv.m_Matrix[0] = m_Matrix[5]  * m_Matrix[10] * m_Matrix[15] - m_Matrix[5]  * m_Matrix[11] * m_Matrix[14] - m_Matrix[9]  * m_Matrix[6]  * m_Matrix[15] +m_Matrix[9]  * m_Matrix[7]  * m_Matrix[14] +m_Matrix[13] * m_Matrix[6]  * m_Matrix[11] -m_Matrix[13] * m_Matrix[7]  * m_Matrix[10];
+
+    inv.m_Matrix[4] = -m_Matrix[4]  * m_Matrix[10] * m_Matrix[15] + m_Matrix[4]  * m_Matrix[11] * m_Matrix[14] +m_Matrix[8]  * m_Matrix[6]  * m_Matrix[15] - m_Matrix[8]  * m_Matrix[7]  * m_Matrix[14] - m_Matrix[12] * m_Matrix[6]  * m_Matrix[11] + m_Matrix[12] * m_Matrix[7]  * m_Matrix[10];
+
+    inv.m_Matrix[8] = m_Matrix[4]  * m_Matrix[9] * m_Matrix[15] - m_Matrix[4]  * m_Matrix[11] * m_Matrix[13] -m_Matrix[8]  * m_Matrix[5] * m_Matrix[15] +m_Matrix[8]  * m_Matrix[7] * m_Matrix[13] +m_Matrix[12] * m_Matrix[5] * m_Matrix[11] -m_Matrix[12] * m_Matrix[7] * m_Matrix[9];
+
+    inv.m_Matrix[12] = -m_Matrix[4]  * m_Matrix[9] * m_Matrix[14] + m_Matrix[4]  * m_Matrix[10] * m_Matrix[13] + m_Matrix[8]  * m_Matrix[5] * m_Matrix[14] -  m_Matrix[8]  * m_Matrix[6] * m_Matrix[13] -  m_Matrix[12] * m_Matrix[5] * m_Matrix[10] +  m_Matrix[12] * m_Matrix[6] * m_Matrix[9];
+
+    inv.m_Matrix[1] = -m_Matrix[1]  * m_Matrix[10] * m_Matrix[15] + m_Matrix[1]  * m_Matrix[11] * m_Matrix[14] +m_Matrix[9]  * m_Matrix[2] * m_Matrix[15] - m_Matrix[9]  * m_Matrix[3] * m_Matrix[14] - m_Matrix[13] * m_Matrix[2] * m_Matrix[11] + m_Matrix[13] * m_Matrix[3] * m_Matrix[10];
+
+    inv.m_Matrix[5] = m_Matrix[0]  * m_Matrix[10] * m_Matrix[15] - m_Matrix[0]  * m_Matrix[11] * m_Matrix[14] -m_Matrix[8]  * m_Matrix[2] * m_Matrix[15] +m_Matrix[8]  * m_Matrix[3] * m_Matrix[14] +m_Matrix[12] * m_Matrix[2] * m_Matrix[11] -m_Matrix[12] * m_Matrix[3] * m_Matrix[10];
+
+    inv.m_Matrix[9] = -m_Matrix[0]  * m_Matrix[9] * m_Matrix[15] + m_Matrix[0]  * m_Matrix[11] * m_Matrix[13] +m_Matrix[8]  * m_Matrix[1] * m_Matrix[15] - m_Matrix[8]  * m_Matrix[3] * m_Matrix[13] - m_Matrix[12] * m_Matrix[1] * m_Matrix[11] + m_Matrix[12] * m_Matrix[3] * m_Matrix[9];
+
+    inv.m_Matrix[13] = m_Matrix[0]  * m_Matrix[9] * m_Matrix[14] - m_Matrix[0]  * m_Matrix[10] * m_Matrix[13] -m_Matrix[8]  * m_Matrix[1] * m_Matrix[14] + m_Matrix[8]  * m_Matrix[2] * m_Matrix[13] + m_Matrix[12] * m_Matrix[1] * m_Matrix[10] - m_Matrix[12] * m_Matrix[2] * m_Matrix[9];
+
+    inv.m_Matrix[2] = m_Matrix[1]  * m_Matrix[6] * m_Matrix[15] - m_Matrix[1]  * m_Matrix[7] * m_Matrix[14] -m_Matrix[5]  * m_Matrix[2] * m_Matrix[15] +m_Matrix[5]  * m_Matrix[3] * m_Matrix[14] +m_Matrix[13] * m_Matrix[2] * m_Matrix[7] -m_Matrix[13] * m_Matrix[3] * m_Matrix[6];
+
+    inv.m_Matrix[6] = -m_Matrix[0]  * m_Matrix[6] * m_Matrix[15] + m_Matrix[0]  * m_Matrix[7] * m_Matrix[14] +m_Matrix[4]  * m_Matrix[2] * m_Matrix[15] - m_Matrix[4]  * m_Matrix[3] * m_Matrix[14] - m_Matrix[12] * m_Matrix[2] * m_Matrix[7] + m_Matrix[12] * m_Matrix[3] * m_Matrix[6];
+
+    inv.m_Matrix[10] = m_Matrix[0]  * m_Matrix[5] * m_Matrix[15] - m_Matrix[0]  * m_Matrix[7] * m_Matrix[13] -m_Matrix[4]  * m_Matrix[1] * m_Matrix[15] + m_Matrix[4]  * m_Matrix[3] * m_Matrix[13] + m_Matrix[12] * m_Matrix[1] * m_Matrix[7] - m_Matrix[12] * m_Matrix[3] * m_Matrix[5];
+
+    inv.m_Matrix[14] = -m_Matrix[0]  * m_Matrix[5] * m_Matrix[14] + m_Matrix[0]  * m_Matrix[6] * m_Matrix[13] + m_Matrix[4]  * m_Matrix[1] * m_Matrix[14] -  m_Matrix[4]  * m_Matrix[2] * m_Matrix[13] -  m_Matrix[12] * m_Matrix[1] * m_Matrix[6] +  m_Matrix[12] * m_Matrix[2] * m_Matrix[5];
+
+    inv.m_Matrix[3] = -m_Matrix[1] * m_Matrix[6] * m_Matrix[11] + m_Matrix[1] * m_Matrix[7] * m_Matrix[10] +m_Matrix[5] * m_Matrix[2] * m_Matrix[11] - m_Matrix[5] * m_Matrix[3] * m_Matrix[10] - m_Matrix[9] * m_Matrix[2] * m_Matrix[7] + m_Matrix[9] * m_Matrix[3] * m_Matrix[6];
+
+    inv.m_Matrix[7] = m_Matrix[0] * m_Matrix[6] * m_Matrix[11] - m_Matrix[0] * m_Matrix[7] * m_Matrix[10] -m_Matrix[4] * m_Matrix[2] * m_Matrix[11] +m_Matrix[4] * m_Matrix[3] * m_Matrix[10] +m_Matrix[8] * m_Matrix[2] * m_Matrix[7] -m_Matrix[8] * m_Matrix[3] * m_Matrix[6];
+
+    inv.m_Matrix[11] = -m_Matrix[0] * m_Matrix[5] * m_Matrix[11] + m_Matrix[0] * m_Matrix[7] * m_Matrix[9] + m_Matrix[4] * m_Matrix[1] * m_Matrix[11] -  m_Matrix[4] * m_Matrix[3] * m_Matrix[9] -  m_Matrix[8] * m_Matrix[1] * m_Matrix[7] +  m_Matrix[8] * m_Matrix[3] * m_Matrix[5];
+
+    inv.m_Matrix[15] = m_Matrix[0] * m_Matrix[5] * m_Matrix[10] - m_Matrix[0] * m_Matrix[6] * m_Matrix[9] -m_Matrix[4] * m_Matrix[1] * m_Matrix[10] + m_Matrix[4] * m_Matrix[2] * m_Matrix[9] + m_Matrix[8] * m_Matrix[1] * m_Matrix[6] - m_Matrix[8] * m_Matrix[2] * m_Matrix[5];
+
+    det = m_Matrix[0] * inv.m_Matrix[0] + m_Matrix[1] * inv.m_Matrix[4] + m_Matrix[2] * inv.m_Matrix[8] + m_Matrix[3] * inv.m_Matrix[12];
+
+    if (det == 0) {
+        inv.identity();
+        return inv;
+    }
+
+    det = 1.0 / det;
+
+    for (i = 0; i < 16; i++)
+        inv.m_Matrix[i] *= det;
+    
+    return inv;
 }

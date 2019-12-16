@@ -3,7 +3,11 @@ add_library(ScarletRenderer SHARED
     Source/Scarlet/Scene.cpp
     Source/Scarlet/Renderer.cpp
     Source/Scarlet/Camera.cpp
+    Source/Scarlet/Renderables/Sphere.cpp
+    Source/Scarlet/Renderables/Renderable.cpp
+    Source/Scarlet/Math/Vector2F.cpp
     Source/Scarlet/Math/Vector3F.cpp
+    Source/Scarlet/Math/Vector4F.cpp
     Source/Scarlet/Math/Mat4x4.cpp
     Source/Scarlet/Materials/MaterialLibrary.cpp
     Source/Scarlet/Materials/NormalMaterial.cpp

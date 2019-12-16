@@ -4,9 +4,18 @@
 #include "Scarlet/Math/Mat4x4.h"
 
 class Renderable {
+private:
+    void recalcTransform();
+protected: 
+    Mat4x4 m_InverseTransform;
+    Vector3F m_Translation;
+    Vector3F m_Rotation;
 public:
+    Mat4x4 m_Transform;
+    Ray transformRay(const Ray& ray);
+    void translate(Vector3F translation);
+    void rotate(Vector3F rotate);
     unsigned int m_materialId;
-    Mat4x4 m_transform;
-    virtual Vector3F getNormal(const Vector3F& hitPosition) = 0;
+    virtual Vector3F getNormal(const Vector3F& ray) = 0;
     virtual float intersect(const Ray& ray) = 0;
 };

@@ -23,39 +23,25 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
 
     for (unsigned int i = 0; i < rays.size(); i++) {
         Ray ray = rays[i];
+        // std::cout << ray.direction.z << "\n";
         ray.origin = camera.m_Transform.multByVector(ray.origin);
+        
         ray.direction = camera.m_Transform.multDirection(ray.direction).unit();
 
         Renderable * renderable = scene.getObject(ray);
         if (!renderable) continue;
-
+        
         Ray tr = renderable->transformRay(ray);
-        
-        Vector3F hit = tr.origin + (tr.direction * renderable->intersect(ray));
-        
-        // hit = 
-
-        if ((hit - Vector3F(0, 0, -5)).length() > 1) {
-            std::cout << tr.origin.x << " " << tr.origin.y << " " << tr.origin.z << "\n";
-            std::cout << tr.direction.x << " " << tr.direction.y << " " << tr.direction.z << "\n";
-        
-            std::cout << hit.x << " " << hit.y << " " << hit.z << "\n";
-            std::cout << "error";
-            return;
-        }
-
-
-        // std::cout << "before: "<< hit.x << " " << hit.y << " " << hit.z << "\n";
-        
-
-        // std::cout << "after: "<< hit.x << " " << hit.y << " " << hit.z << "\n";
-        Vector3F normal = renderable->getNormal(hit);
+        Vector3F objectSpaceHit = tr.origin - (tr.direction * renderable->intersect(ray));
+        Vector3F hit = ray.origin - ray.direction * renderable->intersect(ray);
+ 
+        Vector3F normal = renderable->getNormal(objectSpaceHit);
         
         float lum = (normal.dot(Vector3F(0.2, -0.5, -0.6).unit()));
 
-        int t = static_cast<int>(ceil(abs(hit.x) + 0.5)) % 2;
-        t += static_cast<int>(ceil(abs(hit.y) + 0.5)) % 2;
-        // t += static_cast<int>(ceil(abs(hit.z) + 0.5)) % 2;
+        int t = static_cast<int>(ceil(2 * abs(hit.x) + 0.5)) % 2;
+        t += static_cast<int>(ceil(2 * abs(hit.y) + 0.5)) % 2;
+        // t += static_cast<int>(ceil(2 * abs(hit.z) + 0.5)) % 2;
 
         if (t > 1) t = 0;
         
@@ -65,9 +51,9 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
         c.r = lum * t;
         c.g = lum * t;
         c.b = lum * (1.0 - t);
-        c.r = abs(normal.x);
-        c.g = abs(normal.y);
-        c.b = abs(normal.z);
+        // c.r = abs(normal.x);
+        // c.g = abs(normal.y);
+        // c.b = abs(normal.z);
 
         m_RenderBuffer.setColor(i, c);
     }

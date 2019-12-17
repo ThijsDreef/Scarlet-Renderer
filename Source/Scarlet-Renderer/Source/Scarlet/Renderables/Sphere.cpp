@@ -7,13 +7,7 @@ Sphere::Sphere(float radius) {
 }
 
 Vector3F Sphere::getNormal(const Vector3F& hitPosition) {
-	
-    Vector3F normal = m_Translation - hitPosition;
-	normal.normalize();
-	// std::cout << "hit" << hitPosition.x << " " << hitPosition.y << " " << hitPosition.z << "\n";
-	// std::cout << "pos" << m_Translation.x << " " << m_Translation.y << " " << m_Translation.z << "\n";
-	// std::cout << "norm" << normal.x << " " << normal.y << " " << normal.z << "\n";
-    return normal.unit();
+    return -hitPosition.unit();
 
 }
 
@@ -36,6 +30,6 @@ float Sphere::intersect(const Ray& ray) {
 		t1 = t2; 
 		if (t1 < 0) return -1; 
 	}
-	std::cout << t1 << "\n";
+
 	return t1;
 }

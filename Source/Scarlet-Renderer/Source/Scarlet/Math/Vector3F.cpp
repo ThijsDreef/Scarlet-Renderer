@@ -17,7 +17,7 @@ Vector3F::~Vector3F() {
 
 }
 
-Vector3F Vector3F::cross(Vector3F other) {
+Vector3F Vector3F::cross(Vector3F other) const{
     return Vector3F((y * other.z) - (z * other.y), (z * other.x) - (x * other.z), (x * other.y) - (y * other.x));
 }
 
@@ -25,51 +25,51 @@ void Vector3F::normalize() {
     *this /= length();
 }
 
-Vector3F Vector3F::unit() {
+Vector3F Vector3F::unit() const {
     return *this / length();
 }
 
-float Vector3F::length() {
+float Vector3F::length() const {
     return sqrtf(x * x + y * y + z * z);
 }
 
-float Vector3F::dot(Vector3F other) {
+float Vector3F::dot(Vector3F other) const {
     return (x * other.x + y * other.y + z * other.z);
 }
 
-Vector3F Vector3F::operator*(float scalar) {
+Vector3F Vector3F::operator*(float scalar) const{
     return Vector3F(x * scalar, y * scalar, z * scalar);
 }
 
-Vector3F Vector3F::operator/(float scalar) {
+Vector3F Vector3F::operator/(float scalar) const const{
     return Vector3F(x / scalar, y / scalar, z / scalar);
 }
 
-Vector3F Vector3F::operator+(float add) {
+Vector3F Vector3F::operator+(float add) const{
     return Vector3F(x + add, y + add, z + add);
 }
 
-Vector3F Vector3F::operator-(float min) {
+Vector3F Vector3F::operator-(float min) const{
     return Vector3F(x - min, y - min, z - min);
 }
 
-Vector3F Vector3F::operator*(Vector3F scalar) {
+Vector3F Vector3F::operator*(Vector3F scalar) const{
     return Vector3F(x * scalar.x, y * scalar.y, z * scalar.z);
 }
 
-Vector3F Vector3F::operator/(Vector3F scalar) {
+Vector3F Vector3F::operator/(Vector3F scalar) const{
     return Vector3F(x / scalar.x, y / scalar.y, z / scalar.z);
 }
 
-Vector3F Vector3F::operator+(Vector3F add) {
+Vector3F Vector3F::operator+(Vector3F add) const{
     return Vector3F(x + add.x, y + add.y, z + add.z);
 }
 
-Vector3F Vector3F::operator-(Vector3F min) {
+Vector3F Vector3F::operator-(Vector3F min) const{
     return Vector3F(x - min.x, y - min.y, z - min.z);
 }
 
-Vector3F Vector3F::operator-() {
+Vector3F Vector3F::operator-() const{
     return Vector3F(-x, -y, -z);
 }
 

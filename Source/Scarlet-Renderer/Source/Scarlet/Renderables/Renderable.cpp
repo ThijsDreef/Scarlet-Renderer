@@ -10,9 +10,15 @@ void Renderable::rotate(Vector3F rotation) {
     recalcTransform();
 }
 
+void Renderable::scale(Vector3F scale) {
+    m_Scale += scale;
+    recalcTransform();
+}
+
 void Renderable::recalcTransform() {
     m_Transform.translate(m_Translation);
     m_Transform.rotateBy(m_Rotation);
+    m_Transform.scaleBy(m_Scale);
 
     m_InverseTransform = m_Transform.inverse();
 }

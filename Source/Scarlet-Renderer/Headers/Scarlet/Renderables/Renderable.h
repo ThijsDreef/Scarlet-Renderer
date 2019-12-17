@@ -10,11 +10,15 @@ protected:
     Mat4x4 m_InverseTransform;
     Vector3F m_Translation;
     Vector3F m_Rotation;
+    Vector3F m_Scale;
+
 public:
     Mat4x4 m_Transform;
     Ray transformRay(const Ray& ray);
     void translate(Vector3F translation);
     void rotate(Vector3F rotate);
+    void scale(Vector3F scale);
+
     unsigned int m_materialId;
     virtual Vector3F getNormal(const Vector3F& ray) = 0;
     virtual float intersect(const Ray& ray) = 0;

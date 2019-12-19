@@ -13,8 +13,8 @@ Camera::~Camera() {
 
 std::vector<Ray> Camera::calculateRays(unsigned int w, unsigned int h) {
     std::vector<Ray> cameraRays;
-    // TODO: fill camera rays here
-    Vector3F eye = -m_Lens.unit();
+    
+    Vector3F eye = m_Lens.unit() - Vector3F(0, 0, 0);
     
     Vector3F right = eye.cross(Vector3F(0, 1, 0));
     Vector3F up = right.cross(eye);
@@ -30,8 +30,8 @@ std::vector<Ray> Camera::calculateRays(unsigned int w, unsigned int h) {
 
     for (unsigned int y = 0; y < h; y++) {
         for (unsigned int x = 0; x < w; x++) {
-            Vector3F xVector = right * (x * pw - hw);
-            Vector3F yVector = up * (y * ph - hh);
+            Vector3F xVector = right * (hw - x * pw);
+            Vector3F yVector = up * (hh - y * ph);
             cameraRays.push_back(Ray(Vector3F(0, 0, 0), (eye + xVector + yVector).unit()));
         }
     }

@@ -17,15 +17,13 @@ void Renderable::scale(Vector3F scale) {
 
 void Renderable::recalcTransform() {
     m_Transform.translate(m_Translation);
-    m_Transform.rotateBy(m_Rotation);
     m_Transform.scaleBy(m_Scale);
-
-    m_InverseTransform = m_Transform.inverse();
+    m_Transform.rotateBy(m_Rotation);
 }
 
 Ray Renderable::transformRay(const Ray& ray) {
     Ray transformed;
-    transformed.origin = m_InverseTransform.multByVector(ray.origin);
-    transformed.direction = m_InverseTransform.multDirection(ray.direction).unit();
+    transformed.origin = m_Transform.multByVector(ray.origin);
+    transformed.direction = m_Transform.multDirection(ray.direction).unit();
     return transformed;
 }

@@ -30,7 +30,7 @@ void Mat4x4::translate(const Vector3F& translation) {
 void Mat4x4::translateBy(const Vector3F& tranlation) {
     Mat4x4 multBy;
     multBy.translate(tranlation);
-    *this *= multBy;
+    *this = multBy * *this;
 }
 
 void Mat4x4::rotateX(float radians) {
@@ -61,21 +61,21 @@ void Mat4x4::rotate(const Vector3F& rotation) {
     Mat4x4 rot;
     identity();
     rot.rotateX(rotation.x);
-    *this *= rot;
+    *this = rot * *this;
     rot.rotateY(rotation.y);
-    *this *= rot;
+    *this = rot * *this;
     rot.rotateZ(rotation.z);
-    *this *= rot;
+    *this = rot * *this;
 }
 
 void Mat4x4::rotateBy(const Vector3F& rotation) {
     Mat4x4 rot;
     rot.rotateX(rotation.x);
-    *this *= rot;
+    *this = rot * *this;
     rot.rotateY(rotation.y);
-    *this *= rot;
+    *this = rot * *this;
     rot.rotateZ(rotation.z);
-    *this *= rot;
+    *this = rot * *this;
 }
 
 void Mat4x4::scale(const Vector3F& scale) {
@@ -88,7 +88,7 @@ void Mat4x4::scale(const Vector3F& scale) {
 void Mat4x4::scaleBy(const Vector3F& scale) {
     Mat4x4 s;
     s.scale(scale);
-    *this *= s;
+    *this = s * *this;
 }
 
 void Mat4x4::operator*=(const Mat4x4& other) {

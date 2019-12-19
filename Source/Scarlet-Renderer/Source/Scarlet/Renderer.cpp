@@ -23,9 +23,8 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
 
     for (unsigned int i = 0; i < rays.size(); i++) {
         Ray ray = rays[i];
-        // std::cout << ray.direction.z << "\n";
+
         ray.origin = camera.m_Transform.multByVector(ray.origin);
-        
         ray.direction = camera.m_Transform.multDirection(ray.direction).unit();
 
         Renderable * renderable = scene.getObject(ray);
@@ -33,7 +32,7 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
         
         Ray tr = renderable->transformRay(ray);
         Vector3F objectSpaceHit = tr.origin - (tr.direction * renderable->intersect(ray));
-        Vector3F hit = ray.origin - ray.direction * renderable->intersect(ray);
+        Vector3F hit = ray.origin + ray.direction * renderable->intersect(ray);
  
         Vector3F normal = renderable->getNormal(objectSpaceHit);
         

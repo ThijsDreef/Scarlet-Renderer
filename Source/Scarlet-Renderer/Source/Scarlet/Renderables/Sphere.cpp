@@ -7,7 +7,7 @@ Sphere::Sphere(float radius) {
 }
 
 Vector3F Sphere::getNormal(const Vector3F& hitPosition) {
-    return -hitPosition.unit();
+    return hitPosition.unit();
 
 }
 

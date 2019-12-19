@@ -10,7 +10,7 @@ protected:
     Mat4x4 m_InverseTransform;
     Vector3F m_Translation;
     Vector3F m_Rotation;
-    Vector3F m_Scale;
+    Vector3F m_Scale = Vector3F(1.0, 1.0, 1.0);
 
 public:
     Mat4x4 m_Transform;

@@ -1,6 +1,8 @@
 #include "Scarlet/Renderer.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
+
 Renderer::Renderer() {
     
 }
@@ -38,18 +40,13 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
         Vector3F normal = renderable->getNormal(objectSpaceHit);
         
         float lum = (normal.dot(Vector3F(0.2, -0.5, -0.6).unit()));
-
-        int t = static_cast<int>(ceil(2 * abs(hit.x) + 0.5)) % 2;
-        t += static_cast<int>(ceil(2 * abs(hit.y) + 0.5)) % 2;
-
-        if (t > 1) t = 0;
         
-
-        
-        if (lum < 0.2) lum = 0.2;
-        c.r = lum * t;
-        c.g = lum * t;
-        c.b = lum * (1.0 - t);
+        lum = std::max(lum, 0.2f);
+        Material* mat = scene.getMaterial(renderable->m_materialId);
+        c = mat->getMaterialColor(renderable, objectSpaceHit);
+        c.r *= lum;
+        c.g *= lum;
+        c.b *= lum;
 
         m_RenderBuffer.setColor(i, c);
     }

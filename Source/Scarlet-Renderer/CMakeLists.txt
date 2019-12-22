@@ -11,6 +11,7 @@ add_library(ScarletRenderer SHARED
     Source/Scarlet/Math/Mat4x4.cpp
     Source/Scarlet/Materials/MaterialLibrary.cpp
     Source/Scarlet/Materials/NormalMaterial.cpp
+    Source/Scarlet/Materials/ColorMaterial.cpp
     Source/Scarlet/AccelerationStructures/FlatStructure.cpp
     Source/Scarlet/Objects/Color.cpp
     Source/Scarlet/Objects/Ray.cpp

@@ -14,10 +14,10 @@ int main() {
     // c.m_Transform.rotateBy(Vector3F(0, -0.2, 0));
     // test->scale(Vector3F(2, 2, 2));
 
-    // test = new Sphere(1.0f);
-    // test->translate(Vector3F(1, 0, -5));
-    // test->scale(Vector3F(2, 2, 2));
-    // s.addObject(test);
+    test = new Sphere(1.0f);
+    test->translate(Vector3F(1, 0, -5));
+    test->scale(Vector3F(2, 2, 2));
+    s.addObject(test);
     r.setRenderDimensions(1920, 1080);
     r.renderScene(s, c);
 

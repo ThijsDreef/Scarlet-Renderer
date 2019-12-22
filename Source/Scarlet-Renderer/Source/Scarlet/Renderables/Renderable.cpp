@@ -16,9 +16,10 @@ void Renderable::scale(Vector3F scale) {
 }
 
 void Renderable::recalcTransform() {
-    m_Transform.translate(m_Translation);
+    m_Transform.identity();
     m_Transform.scaleBy(m_Scale);
     m_Transform.rotateBy(m_Rotation);
+    m_Transform.translateBy(m_Translation);
 }
 
 Ray Renderable::transformRay(const Ray& ray) {

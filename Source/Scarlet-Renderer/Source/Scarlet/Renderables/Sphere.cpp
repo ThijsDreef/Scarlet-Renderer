@@ -8,7 +8,6 @@ Sphere::Sphere(float radius) {
 
 Vector3F Sphere::getNormal(const Vector3F& hitPosition) {
     return hitPosition.unit();
-
 }
 
 float Sphere::intersect(const Ray& ray) {

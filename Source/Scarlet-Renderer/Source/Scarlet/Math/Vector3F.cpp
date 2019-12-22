@@ -41,7 +41,7 @@ Vector3F Vector3F::operator*(float scalar) const{
     return Vector3F(x * scalar, y * scalar, z * scalar);
 }
 
-Vector3F Vector3F::operator/(float scalar) const const{
+Vector3F Vector3F::operator/(float scalar) const {
     return Vector3F(x / scalar, y / scalar, z / scalar);
 }
 

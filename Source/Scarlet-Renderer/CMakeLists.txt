@@ -14,5 +14,6 @@ add_library(ScarletRenderer SHARED
     Source/Scarlet/AccelerationStructures/FlatStructure.cpp
     Source/Scarlet/Objects/Color.cpp
     Source/Scarlet/Objects/Ray.cpp
-    Source/Scarlet/Objects/Pixel.cpp)
+    Source/Scarlet/Objects/Pixel.cpp
+    Source/Scarlet/Utils/Timer.cpp)
 target_include_directories(ScarletRenderer PUBLIC Headers/)

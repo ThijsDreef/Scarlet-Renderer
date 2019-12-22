@@ -2,6 +2,7 @@
 #include "Scarlet/RenderBuffer.h"
 #include "Scarlet/Camera.h"
 #include "Scarlet/Scene.h"
+#include "Scarlet/Utils/Timer.h"
 #include <string>
 
 class Renderer {

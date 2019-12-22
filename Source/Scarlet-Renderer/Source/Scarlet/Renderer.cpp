@@ -18,6 +18,7 @@ void Renderer::writeRenderBuffer(const char* fileName) {
 }
 
 void Renderer::renderScene(Scene& scene, Camera & camera) {
+    Timer t;
     std::vector<Ray> rays = camera.calculateRays(m_RenderBuffer.getWidth(), m_RenderBuffer.getHeight());
     Color c;
 
@@ -40,7 +41,6 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
 
         int t = static_cast<int>(ceil(2 * abs(hit.x) + 0.5)) % 2;
         t += static_cast<int>(ceil(2 * abs(hit.y) + 0.5)) % 2;
-        // t += static_cast<int>(ceil(2 * abs(hit.z) + 0.5)) % 2;
 
         if (t > 1) t = 0;
         
@@ -50,10 +50,10 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
         c.r = lum * t;
         c.g = lum * t;
         c.b = lum * (1.0 - t);
-        // c.r = abs(normal.x);
-        // c.g = abs(normal.y);
-        // c.b = abs(normal.z);
 
         m_RenderBuffer.setColor(i, c);
     }
+    double passedTime = t.getElapsed();
+    std::cout << "render took: " << passedTime << " seconds\n";
+    std::cout << std::fixed << "average ray took: " << (passedTime / rays.size()) << " seconds\n";
 }

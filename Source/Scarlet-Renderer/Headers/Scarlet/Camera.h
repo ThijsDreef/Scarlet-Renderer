@@ -10,7 +10,7 @@ private:
     unsigned int m_Fov;
 public:
     Mat4x4 m_Transform;
-    std::vector<Ray> calculateRays(unsigned int w, unsigned int h);
+    std::vector<Ray> calculateRays(unsigned int w, unsigned int h, unsigned int pd);
     Camera(Vector3F lens, unsigned int fov);
     ~Camera();
 };

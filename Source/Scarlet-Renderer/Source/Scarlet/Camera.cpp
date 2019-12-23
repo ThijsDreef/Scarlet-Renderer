@@ -11,12 +11,12 @@ Camera::~Camera() {
 
 }
 
-std::vector<Ray> Camera::calculateRays(unsigned int w, unsigned int h) {
+std::vector<Ray> Camera::calculateRays(unsigned int w, unsigned int h, unsigned int pd) {
     std::vector<Ray> cameraRays;
     
     Vector3F eye = m_Lens.unit() - Vector3F(0, 0, 0);
     
-    Vector3F right = eye.cross(Vector3F(0, -1, 0));
+    Vector3F right = eye.cross(Vector3F(0, 1, 0));
     Vector3F up = right.cross(eye);
 
     float fovRadians = M_PI * (m_Fov / 2.0) / 180.0;
@@ -30,9 +30,14 @@ std::vector<Ray> Camera::calculateRays(unsigned int w, unsigned int h) {
 
     for (unsigned int y = 0; y < h; y++) {
         for (unsigned int x = 0; x < w; x++) {
-            Vector3F xVector = right * (x * pw - hw);
-            Vector3F yVector = up * (y * ph - hh);
-            cameraRays.push_back(Ray(Vector3F(0, 0, 0), (eye + xVector + yVector).unit()));
+            for (unsigned int p = 0; p < pd; p++) {
+                float scaleFactorX = (static_cast<float>(p) / pd - 0.5) * 2.0f;
+                float scaleFactorY = (static_cast<float>(p) / pd - 0.5) * 2.0f;
+
+                Vector3F xVector = right * ((x + scaleFactorX) * pw - hw);
+                Vector3F yVector = up * ((y + scaleFactorY) * ph - hh);
+                cameraRays.push_back(Ray(Vector3F(0, 0, 0), (eye + xVector + yVector).unit()));
+            }
         }
     }
 

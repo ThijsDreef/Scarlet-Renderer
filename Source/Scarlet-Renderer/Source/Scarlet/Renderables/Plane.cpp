@@ -6,7 +6,7 @@ Plane::Plane(Vector3F& normal) {
 }
 
 Vector3F Plane::getNormal(const Vector3F& hitPosition) {
-    return -m_Normal;
+    return m_Normal;
 }
 
 float Plane::intersect(const Ray& ray) {

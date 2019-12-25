@@ -43,7 +43,7 @@ void Renderer::renderScene(Scene& scene, Camera & camera) {
     
             Vector3F normal = renderable->getNormal(objectSpaceHit);
             
-            float lum = (normal.dot(Vector3F(0.2, -0.5, 0.6).unit()));
+            float lum = (normal.dot(Vector3F(0.2, 0.5, -0.6).unit()));
             
             lum = std::max(lum, 0.2f);
             Material* mat = scene.getMaterial(renderable->m_materialId);

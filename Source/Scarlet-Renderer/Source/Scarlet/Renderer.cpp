@@ -81,7 +81,7 @@ void Renderer::renderSceneMultiThreaded(Scene& scene, Camera& camera, unsigned i
     unsigned int pixels = m_RenderBuffer.getHeight() * m_RenderBuffer.getWidth();
     unsigned int rays = camera.calculateRays(m_RenderBuffer.getWidth(), m_RenderBuffer.getHeight(), m_aaFactor);  
     for (unsigned int i = 0; i < threadCount; i++) {
-        threads.push_back(std::thread(&Renderer::renderPixels, this, static_cast<unsigned int>(((i + 0.0) / threadCount) * pixels), static_cast<unsigned int>(((i + 1.0) / threadCount) * pixels), scene, camera));
+        threads.push_back(std::thread(&Renderer::renderPixels, this, static_cast<unsigned int>(((i + 0.0) / threadCount) * pixels), static_cast<unsigned int>(((i + 1.0) / threadCount) * pixels), std::ref(scene), std::ref(camera)));
     }
 
     for (unsigned int i = 0; i < threads.size(); i++) {

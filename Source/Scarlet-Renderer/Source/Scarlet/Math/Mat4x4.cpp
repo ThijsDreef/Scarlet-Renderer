@@ -121,7 +121,7 @@ Mat4x4 Mat4x4::operator*(const Mat4x4& other) {
 	return temp;
 }
 
-Vector3F Mat4x4::multByVector(const Vector3F& other) {
+Vector3F Mat4x4::multByVector(const Vector3F& other) const {
     Vector3F t;
 	t.x = other.x * m_Matrix[0] + other.y * m_Matrix[4] + other.z * m_Matrix[8] + m_Matrix[12];
 	t.y = other.x * m_Matrix[1] + other.y * m_Matrix[5] + other.z * m_Matrix[9] + m_Matrix[13];
@@ -129,7 +129,7 @@ Vector3F Mat4x4::multByVector(const Vector3F& other) {
 	return t;
 }
 
-Vector3F Mat4x4::multDirection(const Vector3F& direction) {
+Vector3F Mat4x4::multByDirection(const Vector3F& direction) const {
     Vector3F t;
 	t.x = direction.x * m_Matrix[0] + direction.y * m_Matrix[4] + direction.z * m_Matrix[8];
 	t.y = direction.x * m_Matrix[1] + direction.y * m_Matrix[5] + direction.z * m_Matrix[9];

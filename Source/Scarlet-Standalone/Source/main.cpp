@@ -23,6 +23,7 @@ int main() {
 
     test = new Plane(Vector3F(0, 1, 0));
     test->translate(Vector3F(0, -3, 0));
+    test->m_materialId = id;
     s.addObject(test);
     
 
@@ -33,7 +34,8 @@ int main() {
     s.addObject(test);
 
     r.setRenderDimensions(800, 800);
-    r.renderScene(s, c);
+    r.renderSceneMultiThreaded(s, c, 12);
+    std::cout << "done";
 
     r.writeRenderBuffer("output.png");
 

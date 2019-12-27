@@ -5,7 +5,7 @@ Scene::Scene(AccelerationStructure* accelerationStructure) {
 }
 
 Scene::~Scene() {
-    
+    delete m_AccelerationStructure;
 }
 
 void Scene::addObject(Renderable* object) {
@@ -17,10 +17,10 @@ unsigned int Scene::addMaterial(Material* material) {
     return m_MaterialLibrary.addMaterial(material);
 }
 
-Renderable* Scene::getObject(const Ray& ray) {
+Renderable* Scene::getObject(const Ray& ray) const {
     return m_AccelerationStructure->getObject(ray);
 }
 
-Material* Scene::getMaterial(unsigned int id) {
+Material* Scene::getMaterial(unsigned int id) const {
     return m_MaterialLibrary.getMaterial(id);
 }

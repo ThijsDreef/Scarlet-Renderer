@@ -25,6 +25,6 @@ void Renderable::recalcTransform() {
 Ray Renderable::transformRay(const Ray& ray) {
     Ray transformed;
     transformed.origin = m_Transform.multByVector(ray.origin);
-    transformed.direction = m_Transform.multDirection(ray.direction).unit();
+    transformed.direction = m_Transform.multByDirection(ray.direction).unit();
     return transformed;
 }

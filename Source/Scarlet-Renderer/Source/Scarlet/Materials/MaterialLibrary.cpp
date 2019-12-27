@@ -38,6 +38,6 @@ void MaterialLibrary::deleteMaterial(unsigned int id) {
     m_Materials[id] = 0;
 }
 
-Material* MaterialLibrary::getMaterial(unsigned int id) {
+Material* MaterialLibrary::getMaterial(unsigned int id) const {
     return (m_Materials.size() > id) ? m_Materials[id] : m_Materials[0];
 }

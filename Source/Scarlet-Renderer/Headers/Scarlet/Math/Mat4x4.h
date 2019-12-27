@@ -22,8 +22,8 @@ public:
     void operator*=(const Mat4x4& other);
     Mat4x4 operator*(const Mat4x4& other);
     
-    Vector3F multDirection(const Vector3F& direction);
-    Vector3F multByVector(const Vector3F& vector);
+    Vector3F multByDirection(const Vector3F& direction) const;
+    Vector3F multByVector(const Vector3F& vector) const;
 
     Mat4x4 inverse();
 

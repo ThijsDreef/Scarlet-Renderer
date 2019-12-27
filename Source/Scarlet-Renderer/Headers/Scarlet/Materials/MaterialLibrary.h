@@ -10,7 +10,7 @@ private:
     unsigned int getNewId();
 public:
     unsigned int addMaterial(Material* u_Material);
-    Material* getMaterial(unsigned int id);
+    Material* getMaterial(unsigned int id) const;
     void deleteMaterial(unsigned int id);
     MaterialLibrary();
     ~MaterialLibrary();

@@ -11,8 +11,8 @@ private:
 public:
     void addObject(Renderable* object);
     unsigned int addMaterial(Material* material);
-    Renderable* getObject(const Ray& ray);
-    Material* getMaterial(unsigned int id);
+    Renderable* getObject(const Ray& ray) const;
+    Material* getMaterial(unsigned int id) const;
     Scene(AccelerationStructure* accelerationStructure);
     ~Scene();
 };

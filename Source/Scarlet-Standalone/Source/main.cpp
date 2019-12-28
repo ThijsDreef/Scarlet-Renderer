@@ -20,8 +20,8 @@ int main() {
     test->translate(Vector3F(2, 2, -10));
     test->m_materialId = id;
     s.addObject(test);
-
-    test = new Plane(Vector3F(0, 1, 0));
+    Vector3F normal(0, 1, 0);
+    test = new Plane(normal);
     test->translate(Vector3F(0, -3, 0));
     test->m_materialId = id;
     s.addObject(test);

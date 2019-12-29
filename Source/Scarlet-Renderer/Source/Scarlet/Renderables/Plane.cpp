@@ -12,8 +12,8 @@ Vector3F Plane::getNormal(const Vector3F& hitPosition) {
 float Plane::intersect(const Ray& ray) {
     Ray transformed = transformRay(ray);
     float denom = (transformed.direction.dot(m_Normal));
-    if (denom > 0) {
-        Vector3F m = -transformed.origin;
+    if (-denom > 0) {
+        Vector3F m = transformed.origin;
         return m.dot(m_Normal) / denom; ; 
     } 
     return -1;

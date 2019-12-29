@@ -22,18 +22,18 @@ int main() {
     s.addObject(test);
     Vector3F normal(0, 1, 0);
     test = new Plane(normal);
-    test->translate(Vector3F(0, -3, 0));
+    test->translate(Vector3F(0, -1, 0));
     test->m_materialId = id;
     s.addObject(test);
     
 
     test = new Sphere(1.0f);
-    test->translate(Vector3F(-1, 0, -5));
+    test->translate(Vector3F(-1, 0.5, -8));
     test->scale(Vector3F(2, 2, 2));
     test->m_materialId = id1;
     s.addObject(test);
 
-    r.setRenderDimensions(800, 800);
+    r.setRenderDimensions(1920, 1080);
     r.renderSceneMultiThreaded(s, c, 12);
     std::cout << "done";
 

@@ -34,8 +34,8 @@ void Renderer::renderPixel(unsigned int id, Scene& scene, Camera& camera) {
     for (unsigned int aa = 0; aa < m_aaFactor; aa++) {
         Ray ray = camera.getRayByIndex(id, aa);
 
-        ray.origin = camera.m_Transform.multByVector(ray.origin);
-        ray.direction = camera.m_Transform.multByDirection(ray.direction).unit();
+        ray.origin = camera.m_Transform.inverse().multByVector(ray.origin);
+        ray.direction = camera.m_Transform.inverse().multByDirection(ray.direction).unit();
 
         Renderable * renderable = scene.getObject(ray);
         if (!renderable) continue;
@@ -43,14 +43,25 @@ void Renderer::renderPixel(unsigned int id, Scene& scene, Camera& camera) {
         Ray tr = renderable->transformRay(ray);
         Vector3F objectSpaceHit = tr.origin - (tr.direction * renderable->intersect(ray));
         Vector3F hit = ray.origin + ray.direction * renderable->intersect(ray);
-
-        Vector3F normal = renderable->getNormal(objectSpaceHit);
+        // std::cout << hit.z << "\n";
         
-        float lum = (normal.dot(Vector3F(0.2, 0.5, -0.6).unit()));
+        Vector3F normal = renderable->getNormal(objectSpaceHit);
+
+        Vector3F lightDirection = Vector3F(0.2, -0.5, -0.4);
+        lightDirection = -lightDirection.unit();
+        
+        float lum = lightDirection.dot(normal);
+        
+        Ray shadowRay;
+        shadowRay.origin = renderable->m_Transform.inverse().multByVector(objectSpaceHit);
+        shadowRay.direction = lightDirection;
+        Renderable* shadow = scene.getObject(shadowRay);
+        if (shadow) lum *= 0.5;
         
         lum = std::max(lum, 0.2f);
         Material* mat = scene.getMaterial(renderable->m_materialId);
         Color rc = mat->getMaterialColor(renderable, objectSpaceHit);
+        // std::cout << shadow << "\n";
         c.r += lum * rc.r;
         c.g += lum * rc.g;
         c.b += lum * rc.b;
@@ -83,9 +94,14 @@ void Renderer::renderSceneMultiThreaded(Scene& scene, Camera& camera, unsigned i
     for (unsigned int i = 0; i < threadCount; i++) {
         threads.push_back(std::thread(&Renderer::renderPixels, this, static_cast<unsigned int>(((i + 0.0) / threadCount) * pixels), static_cast<unsigned int>(((i + 1.0) / threadCount) * pixels), std::ref(scene), std::ref(camera)));
     }
-
+    Timer t;
     for (unsigned int i = 0; i < threads.size(); i++) {
         if (threads[i].joinable())
             threads[i].join();
     }
+    double passedTime = t.getElapsed();
+
+    std::cout << "render took" << passedTime << "\n";
+    std::cout << std::fixed << "average ray took: " << (passedTime / rays) << " seconds\n";
+
 }

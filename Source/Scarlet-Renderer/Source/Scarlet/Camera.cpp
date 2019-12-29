@@ -13,13 +13,13 @@ Camera::~Camera() {
 
 Ray Camera::getRayByIndex(unsigned int i, unsigned int aa) const {
     unsigned int x = i % m_w;
-    unsigned int y = i / m_h;
+    unsigned int y = i / m_w;
     
     float scaleFactorX = (static_cast<float>(aa) / m_pd - 0.5f) * 1.5f;
     float scaleFactorY = (static_cast<float>(aa) / m_pd - 0.5f) * 1.5f;
 
     Vector3F xVector = right * ((x + scaleFactorX) * m_pw - m_hw);
-    Vector3F yVector = up * ((y + scaleFactorY) * m_ph - m_hh);
+    Vector3F yVector = up * (m_hh - (y + scaleFactorY) * m_ph);
     return Ray(Vector3F(0, 0, 0), (eye + xVector + yVector).unit());
 }
 
